@@ -2,6 +2,8 @@ var models = require('../models');
 
 exports.projectInfo = function(req, res) { 
   var projectID = req.params.id;
+  models.Project
+  .find(projectID).exec(afterQuery);
 
   // query for the specific project and
   // call the following callback
@@ -23,6 +25,19 @@ exports.addProject = function(req, res) {
 exports.deleteProject = function(req, res) {
   var projectID = req.params.id;
 
-  // find the project and remove it
+   // find the project and remove it
+  models.Project
+  .find(projectID)
+  .remove()
+  .exec(afterRemoving);
+ 
   // YOU MUST send an OK response w/ res.send();
+  function afterRemoving(err) {
+    if(err) console.log(err);
+    res.send();
+  }
+
 }
+
+
+
